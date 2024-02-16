@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화면설계 및 구현</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 class="text-center">화면 설계 및 구현</h1>
+    <form autocomplete="off" id="loginForm" class="login text-center">
+      <div class="d-flex">
+        <div class="mx-auto id">
+          <li><label for="user_id">아이디</label>
+            <input type="user_id" type="text" placeholder="아이디" autofocus required></li>
+        </div>
+        <div class="mx-auto pw">
+            <li><label for="user_pw">비밀번호</label>
+                <input type="user_pw" type="password" placeholder="비밀번호" autocomplete="off"></li>
+        </div>
+        <button type="submit">로그인</button>
+        <a href="member.html" target="_bank">회원가입</a>
+      </div>
+      </form>
+      <script src="script/bootstrap.bundle.min.js"></script>
+      <script>
+        const loginForm = document.querySelector("#login_form");
+        loginForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const id = document.querySelector("#floatingInput").value;
+          const pw = document.querySelector("floatingPassword").value;
+          fetch("http://localhost:4000/login", {
+            method: "POST",
+            headers:  {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: id,
+              password: pw,
+            }),
+          })
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.message === 'ok') {
+              alert('로그인을 환영합니다!');
+              location.href = "index.html";
+            }
+          });
+        });
+      </script>
+      <script>
+        window.addEventListener("DOMContentLoaded", function () {
+          document.querySelector("#user_id").focus();
+          const loginForm = document.querySelector("#loginForm");
+          loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const sendData = {
+              id: document.querySelector("#user_id").value.trim(),
+              pw: document.querySelector("#user_pw").value.trim(),
+              ip: "192.168.0.200",
+            };
+            const xhr = new XMLHttpRequest();
+            const method = "POST"; 
+            const url = "http://localhost:4000/login";
+            xhr.open(method, url, true);
+            xhr.onreadystatechange = () => {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                let received = JSON.parse(xhr.response);
+                if (received.status === 200) {
+                  alert(`${received.nick}님, 로그인 되었습니다.`);
+                } else {
+                  alert('아이디 또는 비밀번호를 확인하세요');
+                }
+              }
+            };
+            xhr.setRequestHeader("content-type", "application/json"); 
+            xhr.send(JSON.stringify(sendData)); 
+          });
+        });
+      </script>
+
+      <div id="slideShow">
+        <ul class="slides">
+          <li><img src="https://picsum.photos/id/1/300" alt=""></li>
+          <li><img src="https://picsum.photos/id/2/300" alt=""></li>
+          <li><img src="https://picsum.photos/id/3/300" alt=""></li>
+          <li><img src="https://picsum.photos/id/4/300" alt=""></li>
+          <li><img src="https://picsum.photos/id/5/300" alt=""></li>
+          <li><img src="https://picsum.photos/id/6/300" alt=""></li>
+        </ul>  
+        <p class="controller">
+          
+        
+          <span class="prev">&lang;</span>  
+          <span class="next">&rang;</span>
+        </p>
+      </div>
+      <script src="JS/slideShow.js"></script>
+      <script src="./js/login.js" defer=""></script>
+</body>
+</html>

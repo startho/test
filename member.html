@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta charset="utf-8" /> 
+		
+	<title>회원가입 실습</title>
+	
+	<script>
+		
+		function show() {
+			
+			var form = document.myform; 
+			var id = form["id"].value;
+			
+			var name = form["name"].value;
+			var gender = form["gender"].value;
+			var cell = form["tel1"].value + form["tel2"].value + form["tel3"].value;
+			var address = form["address"].value;
+			var hobby = "";
+			for (var i = 1; i <= 4; i++) {
+				if (form["hobby"+i].checked)
+					hobby += form["hobby"+i].value + " ";
+			}
+			var str = id + "\n" + name + "\n" + gender + "\n";
+			str+= cell + "\n" + address + "\n" + hobby;
+			alert(str);
+		}
+	</script>
+
+	</head>
+	<body>
+		
+		<h1>▶︎ 회원가입<br></h1>
+		
+		<form method="post" name="myform">
+		
+		<table border="1" bgcolor="white" bordercolor="black">
+			<tr>
+				<td>* 아이디 :</td>
+				
+				<td><input type="text" name="id" maxlength="12" size="15" /></td>
+			</tr>
+			<tr>
+				<td>* 이름 :</td>
+				<td><input type="text" name="name" maxlength="12" size="15" /></td>
+			</tr>
+			<tr>
+				<td>* 비밀번호 :</td>
+				<td><input type="password" name="pass" maxlength="10" size="15" /></td>
+			</tr>
+			<tr>
+				<td>성별 :</td>
+				
+				<td><input type="radio" name="gender" value="male" checked />남
+					<input type="radio" name="gender" value="female" />여</td>
+			</tr>
+			<tr>
+				<td>휴대전화 :</td>
+				<td>
+				
+					<select name="tel1" >
+						<option value="010">010</option>
+						<option value="011">011</option>
+						<option value="016">016</option>
+						<option value="017">017</option>
+						<option value="070">070</option>
+					</select>
+					- <input type="text" name="tel2" size="4" maxlength="4" />
+					- <input type="text" name="tel3" size="4" maxlength="4" />
+				</td>
+			</tr>
+			<tr>
+				<td>주 소 :</td>
+				<td><input type="text" name="address" size="40"/></td>
+			</tr>
+			<tr>
+                <td>인증번호</td>
+                <td><input type="button" value="인증번호 받기" onclick="hello()"></td>
+            </tr>
+		</table>
+		
+		<br><input type="button" value="회원 가입" onclick="show();">
+		<input type="reset" value="다시 작성">
+	</form>
+	</body>
+</html>
